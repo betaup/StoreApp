@@ -18,15 +18,15 @@ export default function PantallaInicio() {
 
     // sirve para simular red lenta y ver el spinner
     // useEffect(() => {
-    //   setTimeout(() => {
-    //     Promise.all([obtenerProductos(), obtenerCategorias()])
-    //       .then(([datosProductos, datosCategorias]) => {
-    //         setProductos(datosProductos);
-    //         setCategorias(['todas', ...datosCategorias]);
-    //       })
-    //       .catch(() => setError('No se pudieron cargar los productos'))
-    //       .finally(() => setCargando(false));
-    //   }, 2000);
+    //     setTimeout(() => {
+    //         Promise.all([obtenerProductos(), obtenerCategorias()])
+    //         .then(([datosProductos, datosCategorias]) => {
+    //             setProductos(datosProductos);
+    //             setCategorias(['todas', ...datosCategorias]);
+    //         })
+    //         .catch(() => setError('No se pudieron cargar los productos'))
+    //         .finally(() => setCargando(false));
+    //     }, 2000);
     // }, []);
 
     useEffect(() => {
