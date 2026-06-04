@@ -74,6 +74,6 @@ const estilos = StyleSheet.create({
     precio: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: '#2a9d8f',
+        color: '#0071CE',
     },
 });
