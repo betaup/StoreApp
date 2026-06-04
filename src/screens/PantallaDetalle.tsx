@@ -4,12 +4,14 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { obtenerProductoPorId } from '../api/productos';
 import { Producto } from '../types/producto';
 import { StackParams } from '../navigation/Navegacion';
+import { useFavoritosStore } from '../store/FavoritosStore';
 
 type Props = NativeStackScreenProps<StackParams, 'Detalle'>;
 
 export default function PantallaDetalle({ route }: Props) {
     const { id } = route.params;
     const [producto, setProducto] = useState<Producto | null>(null);
+    const { agregarFavorito, quitarFavorito, esFavorito } = useFavoritosStore();
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState('');
 
@@ -36,6 +38,8 @@ export default function PantallaDetalle({ route }: Props) {
         );
     }
 
+    const yaEsFavorito = esFavorito(producto.id);
+
     return (
         <ScrollView contentContainerStyle={estilos.contenedor}>
         <Image source={{ uri: producto.image }} style={estilos.imagen} />
@@ -44,8 +48,13 @@ export default function PantallaDetalle({ route }: Props) {
         <Text style={estilos.precio}>${producto.price}</Text>
         <Text style={estilos.descripcion}>{producto.description}</Text>
 
-        <TouchableOpacity style={estilos.boton}>
-            <Text style={estilos.botonTexto}>Agregar a favoritos</Text>
+        <TouchableOpacity
+            style={[estilos.boton, yaEsFavorito && estilos.botonActivo]}
+            onPress={() => yaEsFavorito ? quitarFavorito(producto.id) : agregarFavorito(producto)}
+        >
+            <Text style={estilos.botonTexto}>
+                {yaEsFavorito ? 'Quitar de favoritos' : 'Agregar a favoritos'}
+            </Text>
         </TouchableOpacity>
         </ScrollView>
     );
@@ -102,5 +111,8 @@ const estilos = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 16,
+    },
+    botonActivo: {
+    backgroundColor: '#e76f51',
     },
 });
