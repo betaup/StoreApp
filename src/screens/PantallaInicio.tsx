@@ -14,6 +14,16 @@ export default function PantallaInicio() {
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState('');
 
+    // useEffect(() => {
+    //     // Simula red lenta para ver el spinner
+    //     setTimeout(() => {
+    //         obtenerProductos()
+    //         .then((datos) => setProductos(datos))
+    //         .catch(() => setError('No se pudieron cargar los productos'))
+    //         .finally(() => setCargando(false));
+    //     }, 2000);
+    // }, []);
+
     useEffect(() => {
         obtenerProductos()
         .then((datos) => setProductos(datos))
