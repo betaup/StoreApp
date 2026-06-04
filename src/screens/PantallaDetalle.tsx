@@ -91,7 +91,7 @@ const estilos = StyleSheet.create({
     precio: {
         fontSize: 22,
         fontWeight: 'bold',
-        color: '#2a9d8f',
+        color: '#0071CE',
         marginBottom: 12,
     },
     descripcion: {
@@ -102,7 +102,7 @@ const estilos = StyleSheet.create({
         marginBottom: 24,
     },
     boton: {
-        backgroundColor: '#2a9d8f',
+        backgroundColor: '#0071CE',
         paddingVertical: 12,
         paddingHorizontal: 32,
         borderRadius: 8,
@@ -113,6 +113,6 @@ const estilos = StyleSheet.create({
         fontSize: 16,
     },
     botonActivo: {
-    backgroundColor: '#e76f51',
+        backgroundColor: '#FFC220',
     },
 });

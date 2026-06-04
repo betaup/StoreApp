@@ -16,18 +16,20 @@ export default function PantallaInicio() {
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState('');
 
+    // sirve para simular red lenta y ver el spinner
     // useEffect(() => {
-    //     // Simula red lenta para ver el spinner
-    //     setTimeout(() => {
-    //         obtenerProductos()
-    //         .then((datos) => setProductos(datos))
-    //         .catch(() => setError('No se pudieron cargar los productos'))
-    //         .finally(() => setCargando(false));
-    //     }, 2000);
+    //   setTimeout(() => {
+    //     Promise.all([obtenerProductos(), obtenerCategorias()])
+    //       .then(([datosProductos, datosCategorias]) => {
+    //         setProductos(datosProductos);
+    //         setCategorias(['todas', ...datosCategorias]);
+    //       })
+    //       .catch(() => setError('No se pudieron cargar los productos'))
+    //       .finally(() => setCargando(false));
+    //   }, 2000);
     // }, []);
 
     useEffect(() => {
-        // Llama a ambas al mismo tiempo para no esperar una por una
         Promise.all([obtenerProductos(), obtenerCategorias()])
         .then(([datosProductos, datosCategorias]) => {
             setProductos(datosProductos);
@@ -37,7 +39,6 @@ export default function PantallaInicio() {
         .finally(() => setCargando(false));
     }, []);
 
-  // Filtra segun la categoria activa
     const productosFiltrados = categoriaActiva === 'todas'
         ? productos
         : productos.filter((p) => p.category === categoriaActiva);
@@ -45,7 +46,8 @@ export default function PantallaInicio() {
     if (cargando) {
         return (
         <View style={estilos.centrado}>
-            <ActivityIndicator size="large" />
+            <ActivityIndicator size="large" color="#0071CE" />
+            <Text style={estilos.cargandoTexto}>Cargando productos...</Text>
         </View>
         );
     }
@@ -53,14 +55,13 @@ export default function PantallaInicio() {
     if (error) {
         return (
         <View style={estilos.centrado}>
-            <Text>{error}</Text>
+            <Text style={estilos.errorTexto}>{error}</Text>
         </View>
         );
     }
 
     return (
-        <View style={{ flex: 1 }}>
-        {/* Fila de botones de categoria */}
+        <View style={estilos.contenedor}>
         <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -73,11 +74,11 @@ export default function PantallaInicio() {
                 onPress={() => setCategoriaActiva(cat)}
             >
                 <Text
-                    style={[estilos.filtroTexto, categoriaActiva === cat && estilos.filtroTextoActivo]}
-                    numberOfLines={2}
-                    textBreakStrategy="simple"  
+                style={[estilos.filtroTexto, categoriaActiva === cat && estilos.filtroTextoActivo]}
+                numberOfLines={2}
+                textBreakStrategy="simple"
                 >
-                    {cat}
+                {cat}
                 </Text>
             </TouchableOpacity>
             ))}
@@ -104,10 +105,24 @@ export default function PantallaInicio() {
 }
 
 const estilos = StyleSheet.create({
+    contenedor: {
+        flex: 1,
+        backgroundColor: '#F2F2F2',
+    },
     centrado: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#F2F2F2',
+    },
+    cargandoTexto: {
+        marginTop: 10,
+        color: '#0071CE',
+        fontSize: 14,
+    },
+    errorTexto: {
+        color: '#cc0000',
+        fontSize: 14,
     },
     filtroCont: {
         paddingHorizontal: 12,
@@ -118,13 +133,13 @@ const estilos = StyleSheet.create({
         paddingHorizontal: 14,
         paddingVertical: 6,
         borderRadius: 20,
-        backgroundColor: '#eee',
+        backgroundColor: '#fff',
         marginRight: 8,
-        minWidth: 80,        
-        alignItems: 'center', 
+        minWidth: 80,
+        alignItems: 'center',
     },
     filtroActivo: {
-        backgroundColor: '#2a9d8f',
+        backgroundColor: '#0071CE',
     },
     filtroTexto: {
         fontSize: 13,
@@ -156,10 +171,11 @@ const estilos = StyleSheet.create({
     titulo: {
         fontSize: 14,
         marginBottom: 4,
+        color: '#333333',
     },
     precio: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: '#2a9d8f',
+        color: '#0071CE',
     },
 });

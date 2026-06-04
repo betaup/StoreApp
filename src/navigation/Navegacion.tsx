@@ -19,10 +19,25 @@ export type TabParams = {
 const Stack = createNativeStackNavigator<StackParams>();
 const Tab = createBottomTabNavigator<TabParams>();
 
-// El tab solo vive en la pantalla de inicio
 function TabsNavegacion() {
     return (
-        <Tab.Navigator>
+        <Tab.Navigator
+        screenOptions={{
+            tabBarActiveTintColor: '#0071CE',
+            tabBarInactiveTintColor: '#888',
+            tabBarStyle: {
+            backgroundColor: '#fff',
+            borderTopColor: '#e0e0e0',
+            },
+            headerStyle: {
+            backgroundColor: '#0071CE',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+            fontWeight: 'bold',
+            },
+        }}
+        >
         <Tab.Screen
             name="CatalogoTab"
             component={PantallaInicio}
@@ -56,22 +71,28 @@ function TabsNavegacion() {
     );
 }
 
-// El stack envuelve todo, incluyendo los tabs
 export default function Navegacion() {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                {/* La pantalla principal contiene los tabs */}
                 <Stack.Screen
                 name="Inicio"
                 component={TabsNavegacion}
                 options={{ headerShown: false }}
                 />
-                {/* Detalle vive fuera de los tabs para ocupar toda la pantalla */}
                 <Stack.Screen
                 name="Detalle"
                 component={PantallaDetalle}
-                options={{ title: 'Detalle del producto' }}
+                options={{
+                    title: 'Detalle del producto',
+                    headerStyle: {
+                    backgroundColor: '#0071CE',
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                    fontWeight: 'bold',
+                    },
+                }}
                 />
             </Stack.Navigator>
         </NavigationContainer>
