@@ -41,20 +41,20 @@ function TabsNavegacion() {
 export default function Navegacion() {
     return (
         <NavigationContainer>
-        <Stack.Navigator>
-            {/* La pantalla principal contiene los tabs */}
-            <Stack.Screen
-            name="Inicio"
-            component={TabsNavegacion}
-            options={{ headerShown: false }}
-            />
-            {/* Detalle vive fuera de los tabs para ocupar toda la pantalla */}
-            <Stack.Screen
-            name="Detalle"
-            component={PantallaDetalle}
-            options={{ title: 'Detalle del producto' }}
-            />
-        </Stack.Navigator>
+            <Stack.Navigator>
+                {/* La pantalla principal contiene los tabs */}
+                <Stack.Screen
+                name="Inicio"
+                component={TabsNavegacion}
+                options={{ headerShown: false }}
+                />
+                {/* Detalle vive fuera de los tabs para ocupar toda la pantalla */}
+                <Stack.Screen
+                name="Detalle"
+                component={PantallaDetalle}
+                options={{ title: 'Detalle del producto' }}
+                />
+            </Stack.Navigator>
         </NavigationContainer>
     );
 }
