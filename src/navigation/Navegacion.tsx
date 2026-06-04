@@ -23,16 +23,16 @@ const Tab = createBottomTabNavigator<TabParams>();
 function TabsNavegacion() {
     return (
         <Tab.Navigator>
-        <Tab.Screen
-            name="CatalogoTab"
-            component={PantallaInicio}
-            options={{ title: 'Catalogo', headerShown: true }}
-        />
-        <Tab.Screen
-            name="FavoritosTab"
-            component={PantallaFavoritos}
-            options={{ title: 'Favoritos' }}
-        />
+            <Tab.Screen
+                name="CatalogoTab"
+                component={PantallaInicio}
+                options={{ title: 'Catalogo', headerShown: true }}
+            />
+            <Tab.Screen
+                name="FavoritosTab"
+                component={PantallaFavoritos}
+                options={{ title: 'Favoritos' }}
+            />
         </Tab.Navigator>
     );
 }
