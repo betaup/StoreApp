@@ -6,39 +6,55 @@ import PantallaInicio from '../screens/PantallaInicio';
 import PantallaDetalle from '../screens/PantallaDetalle';
 import PantallaFavoritos from '../screens/PantallaFavoritos';
 
-// Tipos para los params de cada pantalla del stack
 export type StackParams = {
     Inicio: undefined;
     Detalle: { id: number };
 };
 
-const Stack = createNativeStackNavigator<StackParams>();
-const Tab = createBottomTabNavigator();
+export type TabParams = {
+    CatalogoTab: undefined;
+    FavoritosTab: undefined;
+};
 
-// Las tabs solo manejan el stack principal y favoritos
-function Tabs() {
+const Stack = createNativeStackNavigator<StackParams>();
+const Tab = createBottomTabNavigator<TabParams>();
+
+// El tab solo vive en la pantalla de inicio
+function TabsNavegacion() {
     return (
         <Tab.Navigator>
-            <Tab.Screen name="Catalogo" component={StackInicio} options={{ headerShown: false }} />
-            <Tab.Screen name="Favoritos" component={PantallaFavoritos} />
+        <Tab.Screen
+            name="CatalogoTab"
+            component={PantallaInicio}
+            options={{ title: 'Catalogo', headerShown: true }}
+        />
+        <Tab.Screen
+            name="FavoritosTab"
+            component={PantallaFavoritos}
+            options={{ title: 'Favoritos' }}
+        />
         </Tab.Navigator>
     );
 }
 
-// Stack separado para poder navegar a Detalle desde Inicio
-function StackInicio() {
-    return (
-        <Stack.Navigator>
-            <Stack.Screen name="Inicio" component={PantallaInicio} />
-            <Stack.Screen name="Detalle" component={PantallaDetalle} />
-        </Stack.Navigator>
-    );
-}
-
+// El stack envuelve todo, incluyendo los tabs
 export default function Navegacion() {
     return (
         <NavigationContainer>
-        <Tabs />
+        <Stack.Navigator>
+            {/* La pantalla principal contiene los tabs */}
+            <Stack.Screen
+            name="Inicio"
+            component={TabsNavegacion}
+            options={{ headerShown: false }}
+            />
+            {/* Detalle vive fuera de los tabs para ocupar toda la pantalla */}
+            <Stack.Screen
+            name="Detalle"
+            component={PantallaDetalle}
+            options={{ title: 'Detalle del producto' }}
+            />
+        </Stack.Navigator>
         </NavigationContainer>
     );
 }
