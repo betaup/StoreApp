@@ -11,3 +11,9 @@ export async function obtenerProductoPorId(id: number) {
     const datos = await res.json();
     return datos;
 }
+
+export async function obtenerCategorias() {
+    const respuesta = await fetch(`${URL_BASE}/products/categories`);
+    const datos = await respuesta.json();
+    return datos;
+}

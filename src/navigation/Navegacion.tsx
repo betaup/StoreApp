@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import { Ionicons } from '@expo/vector-icons';
 import PantallaInicio from '../screens/PantallaInicio';
 import PantallaDetalle from '../screens/PantallaDetalle';
 import PantallaFavoritos from '../screens/PantallaFavoritos';
@@ -23,16 +23,35 @@ const Tab = createBottomTabNavigator<TabParams>();
 function TabsNavegacion() {
     return (
         <Tab.Navigator>
-            <Tab.Screen
-                name="CatalogoTab"
-                component={PantallaInicio}
-                options={{ title: 'Catalogo', headerShown: true }}
-            />
-            <Tab.Screen
-                name="FavoritosTab"
-                component={PantallaFavoritos}
-                options={{ title: 'Favoritos' }}
-            />
+        <Tab.Screen
+            name="CatalogoTab"
+            component={PantallaInicio}
+            options={{
+            title: 'Catalogo',
+            headerShown: true,
+            tabBarIcon: ({ color, size, focused }) => (
+                <Ionicons
+                name={focused ? 'storefront' : 'storefront-outline'}
+                size={size}
+                color={color}
+                />
+            ),
+            }}
+        />
+        <Tab.Screen
+            name="FavoritosTab"
+            component={PantallaFavoritos}
+            options={{
+            title: 'Favoritos',
+            tabBarIcon: ({ color, size, focused }) => (
+                <Ionicons
+                name={focused ? 'star' : 'star-outline'}
+                size={size}
+                color={color}
+                />
+            ),
+            }}
+        />
         </Tab.Navigator>
     );
 }
